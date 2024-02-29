@@ -1,0 +1,29 @@
+<section class="py-5" id="">
+
+
+  <div class="bg-main-light w-75 mx-auto p-3 rounded">
+      <h2>All Orders :</h2>
+      <!--? for  numbers of carties   -->
+      <ng-container *ngFor="let order of Orders ; index as index">
+        <div class="row py-2 border-bottom border-3">
+          <!-- ! for products -->
+          <div><h3 class="h5 text-main btn ">Order : {{index + 1 }}</h3></div>
+            <ng-container *ngFor="let product of order.cartItems">
+              <div class="col-md-4">
+
+                <div class="card">
+                  <img [src]="product.product.imageCover" class="card-img-top" [alt]="product.product.title" [title]="product.product.title">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ product.product.title | cuttext:2 }}</h5>
+                    <span>Count: {{product.count}}</span>
+                    <p class="card-text text-main">Price :{{product.price}}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+        </div>
+      </ng-container>
+  </div>
+
+</section>

@@ -1,0 +1,64 @@
+<section class="w-75 mx-auto bg-main-light p-5 rounded">
+  <div>
+    <h2 class="text-capitalize">Create Cash Order</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="checkOut(orderForm)">
+      <div class="mb-3 form-group">
+        <label for="datails" class="form-label">Details:</label>
+       <textarea #detailsInput class="form-control" name="datails" id="datails" formGroupName="details" ></textarea>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="city" class="form-label">city:</label>
+        <input
+          #cityInput
+          type="text"
+          formControlName="city"
+          id="city"
+          class="form-control"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            orderForm.get('city')?.errors &&(orderForm.get('city')?.touched || cityInput.value.length > 0)
+          "
+        >
+          <p *ngIf="orderForm.get('city')?.getError('required')">
+            city is required
+          </p>
+
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="phone" class="form-label">phone:</label>
+        <input
+          #phoneInput
+          type="tel"
+          formControlName="phone"
+          id="phone"
+          class="form-control"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            orderForm.get('phone')?.errors &&(orderForm.get('phone')?.touched || phoneInput.value.length > 0)
+          "
+        >
+          <p *ngIf="orderForm.get('phone')?.getError('required')">
+            phone is required
+          </p>
+          <p *ngIf="orderForm.get('phone')?.getError('pattern')">
+            Accepted only egyption phones
+          </p>
+
+        </div>
+      </div>
+
+      <button
+      class="btn-main d-block ms-auto mb-3"
+      [disabled]="orderForm.invalid"
+    >
+      <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i>Check Out
+    </button>
+
+    </form>
+  </div>
+</section>
