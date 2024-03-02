@@ -107,7 +107,7 @@ ngOnInit(): void {
       console.log(err);
 
     }
-  })
+  });
 
 
 

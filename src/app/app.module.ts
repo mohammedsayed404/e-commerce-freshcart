@@ -26,6 +26,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { CreateorderComponent } from './Views/createorder/createorder.component';
 import { AllordersComponent } from './Views/allorders/allorders.component';
 import { MyhttpInterceptor } from './Shared/Interceptores/myhttp.interceptor';
+import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.component';
+import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
+import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,11 @@ import { MyhttpInterceptor } from './Shared/Interceptores/myhttp.interceptor';
     CuttextPipe,
     SearchPipe,
     CreateorderComponent,
-    AllordersComponent
+    AllordersComponent,
+    ForgetpasswordComponent,
+    VerifycodeComponent,
+    ResetpasswordComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -41,20 +41,24 @@
         "
       >
         <p *ngIf="loginForm.get('password')?.getError('required')">
-          {{ loginForm.get("password")?.errors | json }}
+          Password must be required
         </p>
         <p *ngIf="loginForm.get('password')?.getError('pattern')">
-          password not vaild the pattern
+          password must be form 4 characters to 8 characters
         </p>
       </div>
     </div>
 
+   <div class="d-flex justify-content-between align-items-center">
+    <a class="text-main" routerLink="/forget-password">
+      forget your password ?</a>
     <button
-      class="btn-main d-block ms-auto mb-3"
+      class="btn-main d-block ms-auto "
       [disabled]="loginForm.invalid"
     >
       <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i>login
     </button>
+   </div>
     <div class="alert alert-danger" *ngIf="errMsg">
       {{errMsg}}
     </div>

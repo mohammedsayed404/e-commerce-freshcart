@@ -14,6 +14,9 @@ import { BlankLayoutComponent } from './Layouts/blank-layout/blank-layout.compon
 import { ProductDetailsComponent } from './Views/product-details/product-details.component';
 import { CreateorderComponent } from './Views/createorder/createorder.component';
 import { AllordersComponent } from './Views/allorders/allorders.component';
+import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.component';
+import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
+import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
 
 const routes: Routes = [
   {
@@ -30,6 +33,7 @@ const routes: Routes = [
       { path: 'details/:id', component: ProductDetailsComponent },
       { path: 'categories', component: CategoriesComponent },
       { path: 'brands', component: BrandsComponent },
+      { path:'setting' ,loadChildren:()=> import('./Setting/setting.module').then((m)=>m.SettingModule) },
       // { path: '**', component: NotFoundComponent },
     ],
   },
@@ -40,6 +44,9 @@ const routes: Routes = [
     children: [
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'forget-password', component: ForgetpasswordComponent },
+      { path: 'verify-code', component: VerifycodeComponent },
+      { path: 'reset-password', component: ResetpasswordComponent },
       // { path: '**', component: NotFoundComponent },
     ],
   },

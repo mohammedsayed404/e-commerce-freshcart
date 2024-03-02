@@ -24,4 +24,13 @@ export class RegisterService {
   setSignIn(formData:FormGroup):Observable<any>{
     return this._httpClient.post(`https://ecommerce.routemisr.com/api/v1/auth/signin`,formData)
   }
+  setForgotPassword(formData:FormGroup):Observable<any>{
+    return this._httpClient.post(`https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords`,formData)
+  }
+  setVerifyResetCode(formData:FormGroup):Observable<any>{
+    return this._httpClient.post(`https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode`,formData)
+  }
+  setResetPassword(formData:FormGroup):Observable<any>{
+    return this._httpClient.put(`https://ecommerce.routemisr.com/api/v1/auth/resetPassword`,formData)
+  }
 }

@@ -1,0 +1,33 @@
+<section>
+  <div class="bg-main-light w-75 mx-auto p-3 rounded">
+    <h2 class="border-2 border-bottom pb-3">Verify Code : </h2>
+    <form [formGroup]="verifycodedForm" (ngSubmit)="verifyCode(verifycodedForm)">
+      <div class="mb-3 form-group">
+        <label for="resetCode" class="form-label">Please Enter Your resetCode:</label>
+        <input
+          #resetCodeInput
+          type="text"
+          formControlName="resetCode"
+          id="resetCode"
+          class="form-control"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            verifycodedForm.get('resetCode')?.errors &&( verifycodedForm.get('resetCode')?.touched || resetCodeInput.value.length > 0 )
+          "
+        >
+          <p *ngIf="verifycodedForm.get('resetCode')?.getError('required')">
+            resetCode must be required
+          </p>
+        </div>
+      </div>
+      <button
+      class="btn-main d-block ms-auto "
+      [disabled]="verifycodedForm.invalid"
+    >
+      <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i>Verify
+    </button>
+    </form>
+  </div>
+</section>

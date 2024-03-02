@@ -1,1 +1,17 @@
-<p>categories works!</p>
+<section class="py-5">
+
+  <div class="row g-2">
+      <ng-container *ngFor="let category of categories">
+      <div class="col-md-4">
+        <div class="card product cursor-pointer ">
+          <img [src]="category.image" height="270px" class="card-img-top" [alt]="category.name" [title]="category.name">
+          <div class="card-body">
+            <h5 class="card-title text-main text-center fw-bolder">{{ category.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    </div>
+
+
+</section>

@@ -1,1 +1,18 @@
-<p>brands works!</p>
+<section class="py-5">
+
+  <div class="row g-2">
+      <ng-container *ngFor="let brand of brands">
+      <div class="col-md-4">
+        <div class="card product cursor-pointer ">
+          <img [src]="brand.image"  class="card-img-top" [alt]="brand.name" [title]="brand.name">
+          <div class="card-body">
+            <h5 class="card-title text-main text-center fw-bolder">{{ brand.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    </div>
+
+
+</section>
+
