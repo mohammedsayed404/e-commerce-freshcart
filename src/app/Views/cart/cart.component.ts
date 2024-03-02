@@ -19,7 +19,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.getCartsubscribe = this._cartService.getProductFromCart().subscribe({
       next: (data) => {
         this.cartproductdetails = data;
-        // console.log(data);
       },
       error: (err) => {
         console.log(err);
@@ -33,7 +32,8 @@ export class CartComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.cartproductdetails = data;
-          console.log(data);
+          this._cartService.numOfCartItems.next(data.numOfCartItems)
+          // console.log(data);
         },
         error: (err) => {
           console.log(err);

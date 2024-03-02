@@ -47,7 +47,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             next: ({ data }) => {
               this.product = data;
               this.images = data.images;
-              console.log(data);
+              // console.log(data);
             },
             error: (err) => {
               console.log(err);
@@ -62,8 +62,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   addProductToCart(productId: string): void {
     this.addCartsubscribe = this._cartService.addToCart(productId).subscribe({
       next: (response: Cartdetails) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 'success') {
+          this._cartService.numOfCartItems.next(response.numOfCartItems)
           this._toastrService.success(response.message);
         } else {
           this._toastrService.error(response.message);

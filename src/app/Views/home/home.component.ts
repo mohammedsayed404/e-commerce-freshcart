@@ -68,6 +68,7 @@ export class HomeComponent implements OnInit , OnDestroy {
       next:(response:Cartdetails)=> {
         // console.log(response);
         if (response.status === 'success') {
+          this._cartService.numOfCartItems.next(response.numOfCartItems)
          this._toastrService.success(response.message)
         }else{
           this._toastrService.error(response.message)

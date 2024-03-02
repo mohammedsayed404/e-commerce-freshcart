@@ -26,7 +26,12 @@
 
           </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
+          <li class="nav-item">
+            <a class="nav-link position-relative" routerLink="cart">
+              <i  style="font-size:18px" class="fas fa-shopping-cart text-main"></i>
+              <span *ngIf="numOfCartItems" style="font-size:10px" class="badge text-bg-success position-absolute top-0 end-0 ">{{numOfCartItems}}</span>
+            </a>
+          </li>
           <li class="nav-item align-self-center me-3">
             <i class="fa-brands cursor-pointer px-1 fa-instagram"></i>
             <i class="fa-brands cursor-pointer px-1 fa-facebook"></i>

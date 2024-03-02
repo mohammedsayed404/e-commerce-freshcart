@@ -18,11 +18,27 @@ export class MyhttpInterceptor implements HttpInterceptor {
       const header:any  =  {
         token:localStorage.getItem('eToken')
       }
-
       request = request.clone({
         setHeaders:header
       })
     }
+
+    // TODO another way to use it here
+
+
+
+    // if(localStorage.getItem('eToken')){
+    //   request = request.clone({
+    //     headers:request.headers.set('token',`${localStorage.getItem('eToken')}`)
+    //   })
+    // }
+
+
+
+
+
+
+
 
 
     return next.handle(request);

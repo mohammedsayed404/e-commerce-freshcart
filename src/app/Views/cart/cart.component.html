@@ -1,7 +1,10 @@
 <section>
 <div class="bg-main-light w-75 mx-auto p-3 rounded">
   <h2>Shop Cart</h2>
-  <p class="text-main">Total Price : {{ cartproductdetails.data.totalCartPrice| currency :"EUR"}}</p>
+  <div class="d-flex justify-content-between align-items-center">
+    <p class="text-main">Total Price : {{ cartproductdetails.data.totalCartPrice| currency :"EUR"}}</p>
+  <p class="text-white badge bg-success p-3 fw-bolder ">Cart Items : {{ cartproductdetails.numOfCartItems}}</p>
+  </div>
   <ng-container *ngFor="let product of cartproductdetails.data.products">
     <div class="row py-2 border-bottom">
       <div class="col-md-1">
@@ -14,7 +17,7 @@
           <div>
             <h3 class="h5">{{product.product.title}}</h3>
             <p class="p-0 m-0 text-main">Price : {{product.price}}</p>
-            <button (click)="removeProductFromCart(product.product._id)"  class="btn ps-0"><i class="pe-2 far fa-trash-can text-main"></i>Remove</button>
+            <button (click)="removeProductFromCart(product.product._id)"  class="btn ps-0"><i class="pe-2 far fa-trash-can text-danger"></i>Remove</button>
           </div>
           <div class="d-flex justify-content-between align-items-center">
             <button (click)="changeProductQuantity(product.product._id, product.count + 1 )" class="btn border-success">+</button>

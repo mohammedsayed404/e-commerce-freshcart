@@ -18,10 +18,10 @@
         "
       >
         <p *ngIf="loginForm.get('email')?.getError('required')">
-          {{ loginForm.get("email")?.errors | json }}
+          Email must be required
         </p>
         <p *ngIf="loginForm.get('email')?.getError('email')">
-          {{ loginForm.get("email")?.errors | json }}
+          Email is not valid
         </p>
       </div>
     </div>
