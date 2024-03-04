@@ -1,6 +1,6 @@
 <section class="py-5">
   <div>
-    <h2 class="text-capitalize">Wishlist</h2>
+    <h2 class="text-capitalize fw-bolder text-main">Wishlist</h2>
     <!-- you can use refrance in this searchInput  -->
 
   </div>
@@ -10,6 +10,9 @@
     >
       <div class="col-md-3">
         <div class="card product">
+
+          <i  *ngIf="!wishlistDate.includes(product._id)"(click)="addProductToWishlist(product._id)"  class="fa-regular text-main fa-heart fa-2x heart cursor-pointer"></i>
+             <i  *ngIf="wishlistDate.includes(product._id)" (click)="removeFormWishlist(product._id)"  class="fa-solid text-main fa-heart fa-2x heart cursor-pointer"></i>
           <div class="cursor-pointer" [routerLink]="['/details', product._id]">
             <img
               [src]="product.imageCover"

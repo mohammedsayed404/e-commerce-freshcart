@@ -1,5 +1,5 @@
 import { LowerCasePipe } from '@angular/common';
-import { Component , OnInit } from '@angular/core';
+import { Component , HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cartdetails } from 'src/app/Shared/Interfaces/cartdetails';
 import { CartService } from 'src/app/Shared/Services/cart.service';
@@ -14,6 +14,21 @@ export class NavBlankComponent implements OnInit {
   numOfCartItems : number = 0;
   wishlistCount : number = 0;
 constructor(private _router: Router , private _cartService:CartService , private _wishlistService:WishlistService){}
+@HostListener('window:scroll', ['$event'])
+onWindowScroll():void {
+  let element = document.querySelector('.navbar') as HTMLElement;
+  // console.log(window.scrollY);
+// using scrollY because pageYOffset is deprecated
+  if (window.scrollY  > element.clientHeight) {
+    // element.classList.add('bg-info');
+    element.classList.remove('py-4');
+    element.classList.add('fixed-top');
+  } else {
+    // element.classList.remove('bg-info');
+    element.classList.add('py-4');
+    element.classList.remove('fixed-top');
+  }
+}
   ngOnInit(): void {
 
     //? cart icon

@@ -53,7 +53,7 @@
 <!--? Category slider section  -->
 <section class="my-3">
   <div>
-    <h2 class="h5 text-capitalize fw-bolder">shop popular categories</h2>
+    <h2 class="h5 text-capitalize fw-bolder text-main">shop popular categories</h2>
   </div>
   <owl-carousel-o [options]="categorySliderOptions">
     <ng-container *ngFor="let category of categories">
@@ -65,7 +65,7 @@
           [alt]="category.name"
           [title]="category.name"
         />
-        <h3 class="h6 cursor-pointer text-muted">{{ category.name }}</h3>
+        <h3 class="h6 cursor-pointer text-main">{{ category.name }}</h3>
       </ng-template>
     </ng-container>
   </owl-carousel-o>
@@ -74,7 +74,7 @@
 <!--* Products  section  -->
 <section class="py-5">
   <div>
-    <h2 class="text-capitalize">popular products</h2>
+    <h2 class="text-capitalize fw-bolder text-main">popular products</h2>
     <!-- you can use refrance in this searchInput  -->
     <input
       #searchInput
@@ -90,6 +90,10 @@
     >
       <div class="col-md-3">
         <div class="card product">
+
+             <i  *ngIf="!wishlistDate.includes(product._id)"(click)="addProductToWishlist(product._id)"  class="fa-regular text-main fa-heart fa-2x heart cursor-pointer"></i>
+             <i  *ngIf="wishlistDate.includes(product._id)" (click)="removeFormWishlist(product._id)"  class="fa-solid text-main fa-heart fa-2x heart cursor-pointer"></i>
+
           <div class="cursor-pointer" [routerLink]="['/details', product._id]">
             <img
               [src]="product.imageCover"
