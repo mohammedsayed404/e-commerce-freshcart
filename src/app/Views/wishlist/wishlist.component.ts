@@ -64,21 +64,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
     // this.removeFormWishlist(productId)
   }
 
-   //*=>>>>>>> add to wishlist
-   addProductToWishlist(productId: string): void {
-    this.addWishliatSubscribe = this._wishlistService
-      .addProductToWishlist(productId)
-      .subscribe({
-        next: (response) => {
-          if (response.status === 'success') {
-            // console.log(response);
-            this.wishlistDate = response.data;
-            this._toastrService.success(response.message);
-          }
-        },
-        error: (err) => console.log(err),
-      });
-  }
 //*=>>>>>>> remove to wishlist
   removeFormWishlist(productId: string): void {
     this.removeWishliatSubscribe = this._wishlistService
@@ -89,7 +74,10 @@ export class WishlistComponent implements OnInit, OnDestroy {
             // console.log(response);
             this.wishlistDate = response.data;
             this._toastrService.success(response.message);
-            this.getWishlist();
+            const newProductsList = this.products.filter((product:any)=>this.wishlistDate.includes(product._id))
+            this.products = newProductsList;
+            //TODO USING LENGHT TO MAKE IT FASTER FROM REQUEST
+            this._wishlistService.wishlistCount.next(this.products.length)
           }
         },
         error: (err) => {

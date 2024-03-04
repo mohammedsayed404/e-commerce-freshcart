@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   addCartsubscribe: Subscription = new Subscription();
   addWishliatSubscribe: Subscription = new Subscription();
   removeWishliatSubscribe: Subscription = new Subscription();
+  getWishliatSubscribe: Subscription = new Subscription();
 
   categorySliderOptions: OwlOptions = {
     loop: true,
@@ -70,7 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     nav: true,
   };
 
-
   //*=>>>>>>> add to cart
   addProductToCart(productId: string): void {
     this.addCartsubscribe = this._cartService.addToCart(productId).subscribe({
@@ -99,23 +99,25 @@ export class HomeComponent implements OnInit, OnDestroy {
             // console.log(response);
             this.wishlistDate = response.data;
             this._toastrService.success(response.message);
-            this.getWishlist();
+             // this.getWishlist(); //! using length to make it faster from request
+            this._wishlistService.wishlistCount.next(this.wishlistDate.length)
           }
         },
         error: (err) => console.log(err),
       });
   }
-//*=>>>>>>> remove to wishlist
+  //*=>>>>>>> remove to wishlist
   removeFormWishlist(productId: string): void {
     this.removeWishliatSubscribe = this._wishlistService
       .removeProductFromWishlist(productId)
       .subscribe({
         next: (response) => {
           if (response.status === 'success') {
-            console.log(response);
+            // console.log(response);
             this.wishlistDate = response.data;
             this._toastrService.success(response.message);
-            this.getWishlist();
+            // this.getWishlist(); //! using length to make it faster from request
+            this._wishlistService.wishlistCount.next(this.wishlistDate.length)
           }
         },
         error: (err) => {
@@ -124,19 +126,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getWishlist():void{
-    this._wishlistService.getUserWishlist().subscribe({
-      next: (response ) => {
-          if (response.status === "success") {
-            // console.log(response.data);
-          this._wishlistService.wishlistCount.next(response.count)
-        const newWishlistData = response.data.map((item: any) => item._id);
-
-        this.wishlistDate = newWishlistData;
-          }
-      },
-    });
-  }
   ngOnInit(): void {
     this.productssubscribe = this._ecomdataService.getProducts().subscribe({
       next: ({ data }) => {
@@ -156,8 +145,17 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(err);
       },
     });
-    this.getWishlist();
+   this.getWishliatSubscribe = this._wishlistService.getUserWishlist().subscribe({
+      next: (response) => {
+        if (response.status === 'success') {
+          // console.log(response.data);
+          this._wishlistService.wishlistCount.next(response.count);
+          const newWishlistData = response.data.map((item: any) => item._id);
 
+          this.wishlistDate = newWishlistData;
+        }
+      },
+    });
   }
   ngOnDestroy(): void {
     this.productssubscribe.unsubscribe();
@@ -165,5 +163,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.addCartsubscribe.unsubscribe();
     this.addWishliatSubscribe.unsubscribe();
     this.removeWishliatSubscribe.unsubscribe();
+    this.getWishliatSubscribe.unsubscribe();
   }
 }
