@@ -17,6 +17,7 @@ import { AllordersComponent } from './Views/allorders/allorders.component';
 import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.component';
 import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
 import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
+import { WishlistComponent } from './Views/wishlist/wishlist.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       {path:'', redirectTo:'home', pathMatch:'full'},
       { path: 'home', component: HomeComponent },
       { path: 'cart', component: CartComponent },
+      { path: 'wishlist', component: WishlistComponent },
       { path: 'createorder/:id', component: CreateorderComponent },
       { path: 'allorders', component: AllordersComponent },
       { path: 'products', component: ProductsComponent },

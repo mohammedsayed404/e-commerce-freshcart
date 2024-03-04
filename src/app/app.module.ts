@@ -29,6 +29,7 @@ import { MyhttpInterceptor } from './Shared/Interceptores/myhttp.interceptor';
 import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.component';
 import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
 import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
+import { WishlistComponent } from './Views/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.comp
     ForgetpasswordComponent,
     VerifycodeComponent,
     ResetpasswordComponent,
+    WishlistComponent,
 
   ],
   imports: [

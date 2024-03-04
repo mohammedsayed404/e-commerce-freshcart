@@ -1,13 +1,3 @@
-// export interface Product {
-//   _id:string;
-//   imageCover:string;
-//   title:string;
-//   price:number;
-//   ratingsAverage:number;
-//   // category:{name:string};
-//   category:Category;
-//   description:string;
-// }
 export interface Product {
   sold: number
   images: string[]
