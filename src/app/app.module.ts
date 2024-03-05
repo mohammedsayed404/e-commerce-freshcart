@@ -30,7 +30,7 @@ import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.c
 import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
 import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
 import { WishlistComponent } from './Views/wishlist/wishlist.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +57,7 @@ import { WishlistComponent } from './Views/wishlist/wishlist.component';
     ResetpasswordComponent,
     WishlistComponent,
 
+
   ],
   imports: [
     BrowserModule,
@@ -67,6 +68,7 @@ import { WishlistComponent } from './Views/wishlist/wishlist.component';
     CarouselModule,
     FormsModule,
     ToastrModule.forRoot(),
+    NgxSpinnerModule,
   ],
   providers: [{ provide:HTTP_INTERCEPTORS , useClass:MyhttpInterceptor , multi:true}],
   bootstrap: [AppComponent]

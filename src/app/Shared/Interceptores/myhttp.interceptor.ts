@@ -5,15 +5,19 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class MyhttpInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private _ngxSpinnerService:NgxSpinnerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
+
+
+    this._ngxSpinnerService.show();
     if(localStorage.getItem('eToken')){
       const header:any  =  {
         token:localStorage.getItem('eToken')
@@ -41,6 +45,6 @@ export class MyhttpInterceptor implements HttpInterceptor {
 
 
 
-    return next.handle(request);
+    return next.handle(request).pipe(finalize(()=>this._ngxSpinnerService.hide()));
   }
 }
