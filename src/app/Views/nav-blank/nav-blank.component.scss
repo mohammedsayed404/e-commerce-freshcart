@@ -4,3 +4,8 @@
 nav{
   transition: padding 0.7s ,position 0.1s;
 }
+.nav-item:hover{
+  .signOut{
+    color:#fff;
+  }
+}
