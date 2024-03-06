@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   product: Product = {} as Product;
+  isloading: boolean = false;
   images: string[] = [];
   productIdsubscribe: Subscription = new Subscription();
   addCartsubscribe: Subscription = new Subscription();
@@ -45,6 +46,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           .getProductsById(product_id)
           .subscribe({
             next: ({ data }) => {
+              this.isloading = true;
               this.product = data;
               this.images = data.images;
               // console.log(data);

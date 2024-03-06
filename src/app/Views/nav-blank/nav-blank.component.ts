@@ -64,7 +64,8 @@ onWindowScroll():void {
         if(response.status === 'success'){
           this._wishlistService.wishlistCount.next(response.count)
         }
-      }
+      },
+      error: (err) => console.log(err)
     })
 
 

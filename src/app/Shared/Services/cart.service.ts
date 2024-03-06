@@ -35,4 +35,7 @@ export class CartService {
   getUserOrders(userId:string):Observable<any>{
     return this._httpClient.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`)
   }
+  clearCart():Observable<any>{
+    return this._httpClient.delete(`${this.url}`)
+  }
 }

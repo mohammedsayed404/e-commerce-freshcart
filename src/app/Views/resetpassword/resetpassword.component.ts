@@ -39,7 +39,7 @@ export class ResetpasswordComponent {
             this.isLoading = false;
             localStorage.setItem('eToken', response.token);
             this._registerService.saveUserData();
-            console.log(response);
+            // console.log(response);
             this._router.navigate(['/home']);
           },
           error: (err: HttpErrorResponse) => {
@@ -47,6 +47,8 @@ export class ResetpasswordComponent {
             this._toastrService.error(err.error.message);
           },
         });
+    }else{
+      resetPasswordFormValue.markAllAsTouched();
     }
   }
   ngOnDestroy(): void {

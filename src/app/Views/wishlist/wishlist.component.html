@@ -1,4 +1,4 @@
-<section class="py-5">
+<section class="py-5" *ngIf="products.length;else emptyWishlist ">
   <div>
     <h2 class="text-capitalize fw-bolder text-main">Wishlist</h2>
     <!-- you can use refrance in this searchInput  -->
@@ -44,3 +44,12 @@
     </ng-container>
   </div>
 </section>
+
+
+<ng-template #emptyWishlist>
+  <section>
+    <div class="bg-main-light w-75 mx-auto p-5 rounded text-center">
+      <h2 class="fw-bolder text-main fs-1">your Wishlist is empty ...</h2>
+    </div>
+    </section>
+</ng-template>

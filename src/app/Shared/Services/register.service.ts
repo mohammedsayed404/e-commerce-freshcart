@@ -33,4 +33,7 @@ export class RegisterService {
   setResetPassword(formData:FormGroup):Observable<any>{
     return this._httpClient.put(`https://ecommerce.routemisr.com/api/v1/auth/resetPassword`,formData)
   }
+  changeMyPassword(formData:FormGroup):Observable<any>{
+    return this._httpClient.put(`https://ecommerce.routemisr.com/api/v1/users/changeMyPassword`,formData)
+  }
 }

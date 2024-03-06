@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Cartproductdetails } from 'src/app/Shared/Interfaces/cartproductdetails';
+
 import { CartService } from 'src/app/Shared/Services/cart.service';
 @Component({
   selector: 'app-cart',
@@ -9,19 +12,24 @@ import { CartService } from 'src/app/Shared/Services/cart.service';
 })
 export class CartComponent implements OnInit, OnDestroy {
   cartproductdetails: Cartproductdetails = {} as Cartproductdetails;
+  isLoading:boolean = false;
+  noCart:string ='';
   getCartsubscribe: Subscription = new Subscription();
   removeCartsubscribe: Subscription = new Subscription();
   updateCartsubscribe: Subscription = new Subscription();
-  constructor(private _cartService: CartService ) {}
+  clearCartSubscription: Subscription = new Subscription();
+  constructor(private _cartService: CartService,private _toastrService:ToastrService) {}
   ngOnInit(): void {
 
 
     this.getCartsubscribe = this._cartService.getProductFromCart().subscribe({
       next: (data) => {
+        this.isLoading= true;
         this.cartproductdetails = data;
       },
-      error: (err) => {
-        console.log(err);
+      error: (err:HttpErrorResponse) => {
+        // console.log(err.error.message);
+        this.noCart= err.error.message;
       },
     });
   }
@@ -55,9 +63,27 @@ export class CartComponent implements OnInit, OnDestroy {
         });
     }
   }
+
+  clear():void{
+   this.clearCartSubscription =  this._cartService.clearCart().subscribe({
+      next: (response) => {
+        if(response.message === "success"){
+          this.isLoading = false;
+          this._cartService.numOfCartItems.next(0)
+          this.cartproductdetails.data.products = [];
+          this._toastrService.success('Your cart is empty now')
+        }
+      },
+      error: (err) => console.log(err)
+
+    })
+  }
+
   ngOnDestroy(): void {
     this.getCartsubscribe.unsubscribe();
     this.removeCartsubscribe.unsubscribe();
     this.updateCartsubscribe.unsubscribe();
+    this.clearCartSubscription.unsubscribe();
+
   }
 }
