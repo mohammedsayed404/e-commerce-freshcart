@@ -4,7 +4,7 @@ import { UpdatepasswordComponent } from './Components/updatepassword/updatepassw
 
 const routes: Routes = [
   {path:'', redirectTo:'updatepassword', pathMatch:'full'},
-  {path: 'updatepassword', component:UpdatepasswordComponent},
+  {path: 'updatepassword', component:UpdatepasswordComponent,title:'Update Password'},
 ];
 
 @NgModule({
