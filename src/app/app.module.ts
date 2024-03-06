@@ -31,6 +31,8 @@ import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
 import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
 import { WishlistComponent } from './Views/wishlist/wishlist.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { CategoryDetailsComponent } from './Views/category-details/category-details.component';
+import { BrandDetailsComponent } from './Views/brand-details/brand-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     VerifycodeComponent,
     ResetpasswordComponent,
     WishlistComponent,
+    CategoryDetailsComponent,
+    BrandDetailsComponent,
 
 
   ],

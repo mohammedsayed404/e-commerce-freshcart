@@ -1,56 +1,75 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { Product, Brand } from 'src/app/Shared/Interfaces/product';
 import { Cartdetails } from 'src/app/Shared/Interfaces/cartdetails';
-import { Product } from 'src/app/Shared/Interfaces/product';
 import { CartService } from 'src/app/Shared/Services/cart.service';
 import { EcomdataService } from 'src/app/Shared/Services/ecomdata.service';
 import { WishlistService } from 'src/app/Shared/Services/wishlist.service';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  selector: 'app-brand-details',
+  templateUrl: './brand-details.component.html',
+  styleUrls: ['./brand-details.component.scss']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
-  searchKey: string = '';
+export class BrandDetailsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
+  brands: Brand = {} as Brand;
   wishlistDate: string[] = [];
+  searchKey: string = '';
+  brandsSubscribe: Subscription = new Subscription();
   productssubscribe: Subscription = new Subscription();
   addCartsubscribe: Subscription = new Subscription();
   addWishliatSubscribe: Subscription = new Subscription();
   removeWishliatSubscribe: Subscription = new Subscription();
   getWishliatSubscribe: Subscription = new Subscription();
+  brandSpicifiSubscribe: Subscription = new Subscription();
+  getSpecificProductsByBrandSubscribe: Subscription = new Subscription();
+
   constructor(
     private _ecomdataService: EcomdataService,
+    private _activatedRoute: ActivatedRoute,
     private _cartService: CartService,
     private _toastrService: ToastrService,
-    private _wishlistService: WishlistService
+    private _wishlistService: WishlistService,
   ) {}
-  ngOnInit(): void {
-    this.productssubscribe = this._ecomdataService.getProducts().subscribe({
-      next: ({ data }) => {
-        this.products = data;
-        // console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-    this.getWishliatSubscribe = this._wishlistService.getUserWishlist().subscribe({
-      next: (response) => {
-        if (response.status === 'success') {
-          // console.log(response.data);
-          this._wishlistService.wishlistCount.next(response.count);
-          const newWishlistData = response.data.map((item: any) => item._id);
 
-          this.wishlistDate = newWishlistData;
-        }
+  ngOnInit(): void {
+
+    // ! get spicifi product by category
+    this._activatedRoute.paramMap.subscribe({
+      next: (param) => {
+        const brand_id: any = param.get('id');
+        this.getSpecificProductsByBrandSubscribe = this._ecomdataService
+          .getSpecificProductsByBrand(brand_id)
+          .subscribe({
+            next: ({ data }) => {
+              this.products = data
+              // console.log(data);
+            },
+          });
       },
+      error: (err) => console.log(err),
+    });
+    // !get spicific brand
+    this._activatedRoute.paramMap.subscribe({
+      next: (param) => {
+        const brand_id: any = param.get('id');
+        this.brandSpicifiSubscribe = this._ecomdataService
+          .getSpecificBrand(brand_id)
+          .subscribe({
+            next: ({ data }) => {
+              this.brands = data
+              // console.log(data);
+            },
+          });
+      },
+      error: (err) => console.log(err),
     });
   }
-   //*=>>>>>>> add to wishlist
-   addProductToWishlist(productId: string): void {
+  //*=>>>>>>> add to wishlist
+  addProductToWishlist(productId: string): void {
     this.addWishliatSubscribe = this._wishlistService
       .addProductToWishlist(productId)
       .subscribe({
@@ -59,8 +78,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
             // console.log(response);
             this.wishlistDate = response.data;
             this._toastrService.success(response.message);
-             // this.getWishlist(); //! using length to make it faster from request
-            this._wishlistService.wishlistCount.next(this.wishlistDate.length)
+            // this.getWishlist(); //! using length to make it faster from request
+            this._wishlistService.wishlistCount.next(this.wishlistDate.length);
           }
         },
         error: (err) => console.log(err),
@@ -77,7 +96,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             this.wishlistDate = response.data;
             this._toastrService.success(response.message);
             // this.getWishlist(); //! using length to make it faster from request
-            this._wishlistService.wishlistCount.next(this.wishlistDate.length)
+            this._wishlistService.wishlistCount.next(this.wishlistDate.length);
           }
         },
         error: (err) => {
@@ -85,7 +104,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         },
       });
   }
-//*=>>>>>>> add  to cart
+  //*=>>>>>>> add  to cart
   addProductToCart(productId: string): void {
     this.addCartsubscribe = this._cartService.addToCart(productId).subscribe({
       next: (response: Cartdetails) => {
@@ -104,7 +123,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.productssubscribe.unsubscribe();
+    this.brandSpicifiSubscribe.unsubscribe();
+    this.getSpecificProductsByBrandSubscribe.unsubscribe();
     this.addCartsubscribe.unsubscribe();
     this.addWishliatSubscribe.unsubscribe();
     this.removeWishliatSubscribe.unsubscribe();

@@ -18,6 +18,8 @@ import { ForgetpasswordComponent } from './Views/forgetpassword/forgetpassword.c
 import { VerifycodeComponent } from './Views/verifycode/verifycode.component';
 import { ResetpasswordComponent } from './Views/resetpassword/resetpassword.component';
 import { WishlistComponent } from './Views/wishlist/wishlist.component';
+import { CategoryDetailsComponent } from './Views/category-details/category-details.component';
+import { BrandDetailsComponent } from './Views/brand-details/brand-details.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,9 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent ,title:'Products'},
       { path: 'details/:id', component: ProductDetailsComponent ,title:'Product Details'},
       { path: 'categories', component: CategoriesComponent , title:'Category' },
+      { path: 'category-details/:id', component: CategoryDetailsComponent ,title:'Category Details'},
       { path: 'brands', component: BrandsComponent , title:'Brands' },
+      { path: 'brand-details/:id', component: BrandDetailsComponent ,title:'Brand Details'},
       { path:'setting' ,loadChildren:()=> import('./Setting/setting.module').then((m)=>m.SettingModule)},
       // { path: '**', component: NotFoundComponent },
     ],

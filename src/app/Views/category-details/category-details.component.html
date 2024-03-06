@@ -1,0 +1,89 @@
+<!-- ! showing spicific category  -->
+<section class="pt-5">
+  <div class="row g-2">
+    <div class="col-md-4">
+      <div
+        class="card product cursor-pointer"
+        [routerLink]="['/category-details', categories._id]"
+      >
+        <img
+          [src]="categories.image"
+          class="card-img-top"
+          [alt]="categories.name"
+          [title]="categories.name"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-main text-center fw-bolder">
+            {{ categories.name }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ! showing products  -->
+<section class="py-5">
+  <div>
+    <h2 class="text-capitalize fw-bolder text-main">{{categories.name}}</h2>
+    <!-- you can use refrance in this searchInput  -->
+    <input
+      #searchInput
+      type="search"
+      class="form-control w-50 my-3 mx-auto"
+      placeholder="Search..."
+      [(ngModel)]="searchKey"
+    />
+  </div>
+  <div class="row g-2">
+    <ng-container
+      *ngFor="let product of products.slice(0, 20) | search : searchKey"
+    >
+      <div class="col-md-3">
+        <div class="card product">
+          <i
+            *ngIf="!wishlistDate.includes(product._id)"
+            (click)="addProductToWishlist(product._id)"
+            class="fa-regular text-main fa-heart fa-2x heart cursor-pointer"
+          ></i>
+          <i
+            *ngIf="wishlistDate.includes(product._id)"
+            (click)="removeFormWishlist(product._id)"
+            class="fa-solid text-main fa-heart fa-2x heart cursor-pointer"
+          ></i>
+
+          <div class="cursor-pointer" [routerLink]="['/details', product._id]">
+            <img
+              [src]="product.imageCover"
+              class="card-img-top"
+              [alt]="product.title"
+              [title]="product.title"
+            />
+            <div class="card-body">
+              <h3 class="card-title h6 text-main">
+                {{ product.category.name }}
+              </h3>
+              <h4 class="card-title h6">{{ product.title | cuttext : 2 }}</h4>
+              <!-- <h4 class="card-title h6">{{product.title.split(' ').splice(0, 2).join(' ')}}</h4> -->
+              <div class="d-flex justify-content-between">
+                <span>{{ product.price | currency : "EUR" }}</span>
+                <!-- <span>{{product.price}} EGP</span> -->
+                <span
+                  ><i class="fa fa-star rating-color"></i
+                  ><span class="text-muted">{{
+                    product.ratingsAverage
+                  }}</span></span
+                >
+              </div>
+            </div>
+          </div>
+          <button
+            class="btn-main w-100 mt-2"
+            (click)="addProductToCart(product._id)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>
